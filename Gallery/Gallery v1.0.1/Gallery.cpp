@@ -29,6 +29,16 @@ int getCommandNumberFromUser()
 	return std::atoi(input.c_str());
 }
 
+void printNameAndTime()
+{
+	//Get the time
+	time_t now = time(0);
+	char* dt = ctime(&now);
+
+	std::cout << "Improved By Nave Zambuka" << std::endl;
+	std::cout << "Time: " << dt;
+}
+
 int main(void)
 {
 	// initialization data access
@@ -38,14 +48,10 @@ int main(void)
 	AlbumManager albumManager(dataAccess);
 
 
-	time_t now = time(0);
-	char* dt = ctime(&now);
-
 	std::string albumName;
 	std::cout << "Welcome to Gallery!" << std::endl;
 
-	std::cout << "Improved By Nave Zambuka" << std::endl;
-	std::cout << "Time: " << dt;
+	printNameAndTime();
 
 	std::cout << "===================" << std::endl;
 	std::cout << "Type " << HELP << " to a list of all supported commands" << std::endl;
