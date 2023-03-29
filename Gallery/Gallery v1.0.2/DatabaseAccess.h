@@ -1,5 +1,6 @@
 #pragma once
 #include "IDataAccess.h"
+#include "sqlite3.h"
 
 class DatabaseAccess : public IDataAccess
 {
@@ -42,5 +43,8 @@ public:
 	bool open();
 	void close();
 	void clear();
+
+private:
+	sqlite3* db;
 };
 
