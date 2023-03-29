@@ -42,5 +42,8 @@ public:
 	bool open();
 	void close();
 	void clear();
+
+private:
+	sqlite3* db;
 };
 
