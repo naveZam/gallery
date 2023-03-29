@@ -18,10 +18,37 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Album.cpp" />
+    <ClCompile Include="AlbumManager.cpp" />
+    <ClCompile Include="DatabaseAccess.cpp" />
+    <ClCompile Include="Gallery v1.0.2.cpp" />
+    <ClCompile Include="MemoryAccess.cpp" />
+    <ClCompile Include="Picture.cpp" />
+    <ClCompile Include="sqlite3.c" />
+    <ClCompile Include="User.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Album.h" />
+    <ClInclude Include="AlbumManager.h" />
+    <ClInclude Include="AlbumNotOpenException.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="DatabaseAccess.h" />
+    <ClInclude Include="IDataAccess.h" />
+    <ClInclude Include="ItemNotFoundException.h" />
+    <ClInclude Include="MemoryAccess.h" />
+    <ClInclude Include="MyException.h" />
+    <ClInclude Include="Picture.h" />
+    <ClInclude Include="sqlite3.h" />
+    <ClInclude Include="User.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{22e6d60f-ae6c-4c04-9d52-091cefcdd7f8}</ProjectGuid>
+    <ProjectGuid>{f4e336cb-108c-4543-a064-0152c4016eb8}</ProjectGuid>
     <RootNamespace>Galleryv102</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -126,9 +153,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Gallery v1.0.2.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
