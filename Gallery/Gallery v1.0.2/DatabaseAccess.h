@@ -6,43 +6,43 @@ class DatabaseAccess : public IDataAccess
 {
 public:
 	// album related
-	const std::list<Album> getAlbums();
-	const std::list<Album> getAlbumsOfUser(const User& user);
-	void createAlbum(const Album& album);
-	void deleteAlbum(const std::string& albumName, int userId);
-	bool doesAlbumExists(const std::string& albumName, int userId);
-	Album openAlbum(const std::string& albumName);
-	void closeAlbum(Album& pAlbum);
-	void printAlbums();
+	const std::list<Album> getAlbums() override;
+	const std::list<Album> getAlbumsOfUser(const User& user) override;
+	void createAlbum(const Album& album) override;
+	void deleteAlbum(const std::string& albumName, int userId) override;
+	bool doesAlbumExists(const std::string& albumName, int userId) override;
+	Album openAlbum(const std::string& albumName) override;
+	void closeAlbum(Album& pAlbum) override;
+	void printAlbums() override;
 
 	// picture related
-	void addPictureToAlbumByName(const std::string& albumName, const Picture& picture);
-	void removePictureFromAlbumByName(const std::string& albumName, const std::string& pictureName);
-	void tagUserInPicture(const std::string& albumName, const std::string& pictureName, int userId);
-	void untagUserInPicture(const std::string& albumName, const std::string& pictureName, int userId);
+	void addPictureToAlbumByName(const std::string& albumName, const Picture& picture) override;
+	void removePictureFromAlbumByName(const std::string& albumName, const std::string& pictureName) override;
+	void tagUserInPicture(const std::string& albumName, const std::string& pictureName, int userId) override;
+	void untagUserInPicture(const std::string& albumName, const std::string& pictureName, int userId) override;
 
 	// user related
-	void printUsers();
-	User getUser(int userId);
-	void createUser(User& user);
-	void deleteUser(const User& user);
-	bool doesUserExists(int userId);
+	void printUsers() override;
+	User getUser(int userId) override;
+	void createUser(User& user) override;
+	void deleteUser(const User& user) override;
+	bool doesUserExists(int userId) override;
 
 
 	// user statistics
-	int countAlbumsOwnedOfUser(const User& user);
-	int countAlbumsTaggedOfUser(const User& user);
-	int countTagsOfUser(const User& user);
-	float averageTagsPerAlbumOfUser(const User& user);
+	int countAlbumsOwnedOfUser(const User& user) override;
+	int countAlbumsTaggedOfUser(const User& user) override;
+	int countTagsOfUser(const User& user) override;
+	float averageTagsPerAlbumOfUser(const User& user) override;
 
 	// queries
-	User getTopTaggedUser();
-	Picture getTopTaggedPicture();
-	std::list<Picture> getTaggedPicturesOfUser(const User& user);
+	User getTopTaggedUser() override;
+	Picture getTopTaggedPicture() override;
+	std::list<Picture> getTaggedPicturesOfUser(const User& user) override;
 
-	bool open();
-	void close();
-	void clear();
+	bool open() override;
+	void close() override;
+	void clear() override;
 
 private:
 	sqlite3* db;

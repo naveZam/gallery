@@ -32,7 +32,10 @@ int getCommandNumberFromUser()
 int main(void)
 {
 	// initialization data access
-	DatabaseAccess dataAccess;
+	MemoryAccess dataAccess;
+	DatabaseAccess dataAccessTest;
+	dataAccessTest.open();
+	dataAccessTest.close();
 
 	// initialize album manager
 	AlbumManager albumManager(dataAccess);
