@@ -3,7 +3,8 @@
 #include "User.h"
 #include <io.h>
 
-int retVal = 0;
+int retVal = 0; //Not recommended but will to
+std::list<Album> albumList;
 
 bool DatabaseAccess::open()
 {
@@ -181,9 +182,37 @@ std::list<Picture> DatabaseAccess::getTaggedPicturesOfUser(const User& user)
     return std::list<Picture>();
 }
 
+int callbackGetAlbums(void* data, int argc, char** argv, char** azColName)
+{
+    Album album;
+    int i = 0;
+
+    for (i = 0; i < argc; i++)
+    {
+        if (std::string(azColName[i]) == "USER_ID") 
+        {
+            album.setOwner(atoi(argv[i]));
+        }
+        else if (std::string(azColName[i]) == "NAME") 
+        {
+            album.setName(argv[i]);
+        }
+        else if (std::string(azColName[i]) == "CREATION_DATE") 
+        {
+            album.setCreationDate(argv[i]);
+        }
+    }
+
+    albumList.push_back(album);
+    return 0;
+}
+
 const std::list<Album> DatabaseAccess::getAlbums()
 {
-    return std::list<Album>();
+    sqlStatement = "SELECT * FROM ALBUMS";
+    errMessage = nullptr;
+    res = sqlite3_exec(db, sqlStatement, callbackGetAlbums, nullptr, &errMessage);
+    return albumList;
 }
 
 const std::list<Album> DatabaseAccess::getAlbumsOfUser(const User& user)
