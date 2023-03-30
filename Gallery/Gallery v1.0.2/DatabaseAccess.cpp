@@ -57,6 +57,12 @@ void DatabaseAccess::clear()
 {
 }
 
+int DatabaseAccess::pictureIdFromName(const std::string& pictureName)
+{
+
+    return 0;
+}
+
 bool DatabaseAccess::doesAlbumExists(const std::string& albumName, int userId)
 {
     return false;
@@ -85,6 +91,9 @@ void DatabaseAccess::removePictureFromAlbumByName(const std::string& albumName, 
 
 void DatabaseAccess::tagUserInPicture(const std::string& albumName, const std::string& pictureName, int userId)
 {
+    std::string str = "INSERT INTO TAGS (picture_id, user_id) VALUES(" + std::to_string(pictureIdFromName(pictureName)) + ", " + std::to_string(userId) + ");";
+    errMessage = nullptr;
+    res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
 }
 
 void DatabaseAccess::untagUserInPicture(const std::string& albumName, const std::string& pictureName, int userId)

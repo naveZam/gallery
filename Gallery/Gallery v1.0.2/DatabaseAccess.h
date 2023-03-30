@@ -49,5 +49,7 @@ private:
 	const char* sqlStatement;
 	char* errMessage = nullptr;
 	int res;
+
+	int pictureIdFromName(const std::string& pictureName);
 };
 
