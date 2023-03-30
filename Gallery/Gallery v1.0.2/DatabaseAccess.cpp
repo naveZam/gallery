@@ -98,6 +98,9 @@ void DatabaseAccess::tagUserInPicture(const std::string& albumName, const std::s
 
 void DatabaseAccess::untagUserInPicture(const std::string& albumName, const std::string& pictureName, int userId)
 {
+    std::string str = "DELETE FROM TAGS WHERE picture_id = " + std::to_string(pictureIdFromName(pictureName)) + " AND user_id = " + std::to_string(userId) + ";";
+    errMessage = nullptr;
+    res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
 }
 
 void DatabaseAccess::printUsers()
