@@ -16,7 +16,33 @@ bool DatabaseAccess::open()
     }
 
     if (file_exist != 0) {
-        // init database
+        const char* sqlStatement = "CREATE TABLE USERS (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL); ";
+
+        char* errMessage = nullptr;
+        res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
+        if (res != SQLITE_OK)
+            return false;
+
+        sqlStatement = "CREATE TABLE ALBUMS (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, creation_date TEXT NOT NULL, user_id INT NOT NULL, FOREIGN KEY(user_id) REFERENCES USERS(id));";
+
+        errMessage = nullptr;
+        res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
+        if (res != SQLITE_OK)
+            return false;
+
+        sqlStatement = "CREATE TABLE PICTURES (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, location TEXT NOT NULL, creation_date TEXT NOT NULL, album_id INT NOT NULL, FOREIGN KEY(album_id) REFERENCES ALBUMS(id));";
+
+        errMessage = nullptr;
+        res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
+        if (res != SQLITE_OK)
+            return false;
+
+        sqlStatement = "CREATE TABLE TAGS (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, picture_id INT NOT NULL, user_id INT NOT NULL, FOREIGN KEY(picture_id) REFERENCES PICTURES(id), FOREIGN KEY(user_id) REFERENCES USERS(id));";
+
+        errMessage = nullptr;
+        res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
+        if (res != SQLITE_OK)
+            return false;
     }
     return true;
 }
