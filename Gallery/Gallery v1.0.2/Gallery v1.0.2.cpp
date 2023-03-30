@@ -35,7 +35,7 @@ int main(void)
 	MemoryAccess dataAccess;
 	DatabaseAccess dataAccessTest;
 	dataAccessTest.open();
-	dataAccessTest.doesAlbumExists("Selfie", 1);
+	dataAccessTest.openAlbum("Selfie");
 	dataAccessTest.close();
 
 	// initialize album manager

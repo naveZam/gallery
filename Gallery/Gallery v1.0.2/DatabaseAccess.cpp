@@ -91,7 +91,16 @@ bool DatabaseAccess::doesAlbumExists(const std::string& albumName, int userId)
 
 Album DatabaseAccess::openAlbum(const std::string& albumName)
 {
-    return Album();
+    std::list<Album> list = getAlbums();
+    auto it = list.begin();
+    for (it = list.begin(); it != list.end(); it++)
+    {
+        if (it->getName() == albumName)
+        {
+            return list.front();
+        }
+        list.pop_back();
+    }
 }
 
 void DatabaseAccess::closeAlbum(Album& pAlbum)
