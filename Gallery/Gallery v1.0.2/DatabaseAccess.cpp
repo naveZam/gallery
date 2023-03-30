@@ -3,6 +3,8 @@
 #include "User.h"
 #include <io.h>
 
+int retVal = 0;
+
 bool DatabaseAccess::open()
 {
     std::string dbFileName = "galleryDB.sqlite";
@@ -57,10 +59,19 @@ void DatabaseAccess::clear()
 {
 }
 
+static int callbackPictureIdFromName(void* NotUsed, int argc, char** argv, char** azColName)
+{
+    retVal = atoi(argv[0]);
+    return 0;
+}
+
 int DatabaseAccess::pictureIdFromName(const std::string& pictureName)
 {
-
-    return 0;
+    std::string str = "SELECT id FROM PICTURES WHERE name = \"" + pictureName + "\";";
+    sqlStatement = str.c_str();
+    errMessage = nullptr;
+    res = sqlite3_exec(db, sqlStatement, callbackPictureIdFromName, nullptr, &errMessage);
+    return retVal;
 }
 
 bool DatabaseAccess::doesAlbumExists(const std::string& albumName, int userId)
