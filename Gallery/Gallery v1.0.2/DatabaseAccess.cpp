@@ -92,6 +92,7 @@ void DatabaseAccess::removePictureFromAlbumByName(const std::string& albumName, 
 void DatabaseAccess::tagUserInPicture(const std::string& albumName, const std::string& pictureName, int userId)
 {
     std::string str = "INSERT INTO TAGS (picture_id, user_id) VALUES(" + std::to_string(pictureIdFromName(pictureName)) + ", " + std::to_string(userId) + ");";
+    sqlStatement = str.c_str();
     errMessage = nullptr;
     res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
 }
@@ -99,6 +100,7 @@ void DatabaseAccess::tagUserInPicture(const std::string& albumName, const std::s
 void DatabaseAccess::untagUserInPicture(const std::string& albumName, const std::string& pictureName, int userId)
 {
     std::string str = "DELETE FROM TAGS WHERE picture_id = " + std::to_string(pictureIdFromName(pictureName)) + " AND user_id = " + std::to_string(userId) + ";";
+    sqlStatement = str.c_str();
     errMessage = nullptr;
     res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
 }
@@ -114,6 +116,10 @@ User DatabaseAccess::getUser(int userId)
 
 void DatabaseAccess::createUser(User& user)
 {
+    std::string str = "INSERT INTO USERS (id, name) VALUES(" + std::to_string(user.getId()) + ", \"" + user.getName() + "\");";
+    sqlStatement = str.c_str();
+    errMessage = nullptr;
+    res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
 }
 
 void DatabaseAccess::deleteUser(const User& user)
