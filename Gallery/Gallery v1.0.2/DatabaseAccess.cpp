@@ -217,7 +217,11 @@ const std::list<Album> DatabaseAccess::getAlbums()
 
 const std::list<Album> DatabaseAccess::getAlbumsOfUser(const User& user)
 {
-    return std::list<Album>();
+    std::string str = "SELECT * FROM ALBUMS WHERE user_id = " + std::to_string(user.getId()) + ";";
+    sqlStatement = str.c_str();
+    errMessage = nullptr;
+    res = sqlite3_exec(db, sqlStatement, callbackGetAlbums, nullptr, &errMessage);
+    return albumList;
 }
 
 void DatabaseAccess::createAlbum(const Album& album)

@@ -34,8 +34,11 @@ int main(void)
 	// initialization data access
 	MemoryAccess dataAccess;
 	DatabaseAccess dataAccessTest;
+
+	User user = User(2, "Albert Einstein");
 	dataAccessTest.open();
-	dataAccessTest.getAlbums();
+	dataAccessTest.getAlbumsOfUser(user);
+	dataAccessTest.close();
 
 	// initialize album manager
 	AlbumManager albumManager(dataAccess);
