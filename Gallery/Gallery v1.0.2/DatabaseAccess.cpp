@@ -77,6 +77,15 @@ int DatabaseAccess::pictureIdFromName(const std::string& pictureName)
 
 bool DatabaseAccess::doesAlbumExists(const std::string& albumName, int userId)
 {
+    std::list<Album> list = getAlbums();
+    auto it = list.begin();
+    for (it = list.begin(); it != list.end(); it++)
+    {
+        if (it->getOwnerId() == userId && it->getName() == albumName)
+        {
+            return true;
+        }
+    }
     return false;
 }
 
