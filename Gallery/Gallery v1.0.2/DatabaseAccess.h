@@ -46,5 +46,8 @@ public:
 
 private:
 	sqlite3* db;
+	const char* sqlStatement;
+	char* errMessage = nullptr;
+	int res;
 };
 

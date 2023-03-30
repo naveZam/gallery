@@ -7,7 +7,7 @@ bool DatabaseAccess::open()
 {
     std::string dbFileName = "galleryDB.sqlite";
     int file_exist = _access(dbFileName.c_str(), 0);
-    int res = sqlite3_open(dbFileName.c_str(), &db);
+    res = sqlite3_open(dbFileName.c_str(), &db);
 
     if (res != SQLITE_OK) {
         db = nullptr;
@@ -138,4 +138,10 @@ void DatabaseAccess::createAlbum(const Album& album)
 
 void DatabaseAccess::deleteAlbum(const std::string& albumName, int userId)
 {
+    std::string str = "DELETE FROM ALBUMS WHERE user_id = " + std::to_string(userId) + "AND name = \"" + albumName + "\";";
+    sqlStatement = str.c_str();
+    errMessage = nullptr;
+    res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
+    if (res != SQLITE_OK)
+        return;
 }
