@@ -109,6 +109,13 @@ void DatabaseAccess::closeAlbum(Album& pAlbum)
 
 void DatabaseAccess::printAlbums()
 {
+    std::list<Album> list = getAlbums();
+    auto it = list.begin();
+    for (it = list.begin(); it != list.end(); it++)
+    {
+        std::cout << "Name: " << it->getName() << "\nCreation Date: " << it->getCreationDate() << "\nOwner Id: " << it->getOwnerId()  << "\n\n";
+        list.pop_back();
+    }
 }
 
 void DatabaseAccess::addPictureToAlbumByName(const std::string& albumName, const Picture& picture)
