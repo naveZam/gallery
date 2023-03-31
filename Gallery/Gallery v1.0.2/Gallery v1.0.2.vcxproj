@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Album.cpp" />
     <ClCompile Include="AlbumManager.cpp" />
+    <ClCompile Include="DataAccessTest.cpp" />
     <ClCompile Include="DatabaseAccess.cpp" />
     <ClCompile Include="Gallery v1.0.2.cpp" />
     <ClCompile Include="MemoryAccess.cpp" />
@@ -33,6 +34,7 @@
     <ClInclude Include="AlbumManager.h" />
     <ClInclude Include="AlbumNotOpenException.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="DataAccessTest.h" />
     <ClInclude Include="DatabaseAccess.h" />
     <ClInclude Include="IDataAccess.h" />
     <ClInclude Include="ItemNotFoundException.h" />
