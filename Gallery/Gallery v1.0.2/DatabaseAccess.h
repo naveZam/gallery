@@ -53,6 +53,6 @@ private:
 	int pictureIdFromName(const std::string& pictureName);
 	int albumIdFromName(const std::string& albumName);
 	const std::list<User> getUsers();
-	const std::list<Picture> getPictures();
+	const std::list<Picture> getPicturesFromAlbum(const std::string& albumName);
 };
 

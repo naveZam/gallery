@@ -354,9 +354,10 @@ int callbackGetPictures(void* data, int argc, char** argv, char** azColName)
     return 0;
 }
 
-const std::list<Picture> DatabaseAccess::getPictures()
+const std::list<Picture> DatabaseAccess::getPicturesFromAlbum(const std::string& albumName)
 {
-    sqlStatement = "SELECT * FROM PICTURES";
+    std::string str = "SELECT * FROM PICTURES WHERE album_id = " + std::to_string(albumIdFromName(albumName)) + ";";
+    sqlStatement = str.c_str();
     errMessage = nullptr;
     res = sqlite3_exec(db, sqlStatement, callbackGetAlbums, nullptr, &errMessage);
     return pictureList;
