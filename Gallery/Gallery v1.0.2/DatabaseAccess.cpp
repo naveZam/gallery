@@ -253,12 +253,12 @@ int DatabaseAccess::countAlbumsOwnedOfUser(const User& user)
 
 int DatabaseAccess::countAlbumsTaggedOfUser(const User& user)
 {
-
     return 0;
 }
 
 int DatabaseAccess::countTagsOfUser(const User& user)
 {
+
     return 0;
 }
 
@@ -381,4 +381,12 @@ void DatabaseAccess::deleteAlbum(const std::string& albumName, int userId)
 
         list.pop_front();
     }
+}
+
+const std::list<Picture> DatabaseAccess::getPictures()
+{
+    sqlStatement = "SELECT * FROM PICTURES;";
+    errMessage = nullptr;
+    res = sqlite3_exec(db, sqlStatement, callbackGetPictures, nullptr, &errMessage);
+    return pictureList;
 }
