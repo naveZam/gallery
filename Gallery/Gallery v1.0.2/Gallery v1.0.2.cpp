@@ -35,7 +35,7 @@ int main(void)
 	MemoryAccess dataAccess;
 	DatabaseAccess dataAccessTest;
 	dataAccessTest.open();
-	dataAccessTest.printAlbums();
+	dataAccessTest.printUsers();
 	dataAccessTest.close();
 
 	// initialize album manager

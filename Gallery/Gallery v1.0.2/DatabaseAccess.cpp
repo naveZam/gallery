@@ -3,8 +3,10 @@
 #include "User.h"
 #include <io.h>
 
-int retVal = 0; //Not recommended but will to
+//Not recommended but will to
+int retVal = 0;
 std::list<Album> albumList;
+std::list<User> userList;
 
 bool DatabaseAccess::open()
 {
@@ -114,7 +116,6 @@ void DatabaseAccess::printAlbums()
     for (it = list.begin(); it != list.end(); it++)
     {
         std::cout << "Name: " << it->getName() << "\nCreation Date: " << it->getCreationDate() << "\nOwner Id: " << it->getOwnerId()  << "\n\n";
-        list.pop_back();
     }
 }
 
@@ -159,9 +160,34 @@ void DatabaseAccess::untagUserInPicture(const std::string& albumName, const std:
     res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
 }
 
+int callbackGetUsers(void* data, int argc, char** argv, char** azColName)
+{
+    int id = 0;
+    std::string name = "";
+    int i = 0;
+
+    for (i = 0; i < argc; i++)
+    {
+        if (std::string(azColName[i]) == "ID")
+        {
+            id = atoi(argv[i]);
+        }
+        else if (std::string(azColName[i]) == "NAME")
+        {
+            name = argv[i];
+        }
+    }
+    User user(id, name);
+    userList.push_back(user);
+    return 0;
+}
+
 const std::list<User> DatabaseAccess::getUsers()
 {
-    return std::list<User>();
+    sqlStatement = "SELECT * FROM USERS";
+    errMessage = nullptr;
+    res = sqlite3_exec(db, sqlStatement, callbackGetUsers, nullptr, &errMessage);
+    return userList;
 }
 
 void DatabaseAccess::printUsers()
@@ -171,7 +197,6 @@ void DatabaseAccess::printUsers()
     for (it = list.begin(); it != list.end(); it++)
     {
         std::cout << "Id: " << it->getId() << "\nName: " << it->getName() << "\n\n";
-        list.pop_back();
     }
 }
 
