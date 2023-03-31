@@ -7,6 +7,7 @@
 int retVal = 0;
 std::list<Album> albumList;
 std::list<User> userList;
+std::list<Picture> pictureList;
 
 bool DatabaseAccess::open()
 {
@@ -252,6 +253,7 @@ int DatabaseAccess::countAlbumsOwnedOfUser(const User& user)
 
 int DatabaseAccess::countAlbumsTaggedOfUser(const User& user)
 {
+
     return 0;
 }
 
@@ -330,12 +332,42 @@ void DatabaseAccess::createAlbum(const Album& album)
     res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
 }
 
+int callbackGetPictures(void* data, int argc, char** argv, char** azColName)
+{
+    int id = 0;
+    std::string name = "";
+    int i = 0;
+
+    for (i = 0; i < argc; i++)
+    {
+        if (std::string(azColName[i]) == "ID")
+        {
+            id = atoi(argv[i]);
+        }
+        else if (std::string(azColName[i]) == "NAME")
+        {
+            name = argv[i];
+        }
+    }
+    Picture picture(id, name);
+    pictureList.push_back(picture);
+    return 0;
+}
+
+const std::list<Picture> DatabaseAccess::getPictures()
+{
+    sqlStatement = "SELECT * FROM PICTURES";
+    errMessage = nullptr;
+    res = sqlite3_exec(db, sqlStatement, callbackGetAlbums, nullptr, &errMessage);
+    return pictureList;
+}
+
 void DatabaseAccess::deleteAlbum(const std::string& albumName, int userId)
 {
     std::string str = "DELETE FROM ALBUMS WHERE user_id = " + std::to_string(userId) + "AND name = \"" + albumName + "\";";
     sqlStatement = str.c_str();
     errMessage = nullptr;
     res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
-    if (res != SQLITE_OK)
-        return;
+    
+
 }
