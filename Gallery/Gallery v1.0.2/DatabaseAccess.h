@@ -51,5 +51,6 @@ private:
 	int res;
 
 	int pictureIdFromName(const std::string& pictureName);
+	int albumIdFromName(const std::string& albumName);
 };
 

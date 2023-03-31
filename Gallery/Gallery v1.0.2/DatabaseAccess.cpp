@@ -118,8 +118,17 @@ void DatabaseAccess::printAlbums()
     }
 }
 
+int DatabaseAccess::albumIdFromName(const std::string& albumName)
+{
+    return 0;
+}
+
 void DatabaseAccess::addPictureToAlbumByName(const std::string& albumName, const Picture& picture)
 {
+    std::string str = "INSERT INTO PICTURES (name, location, creation_date, album_id) VALUES (\"" + picture.getName() + "\", \"" + picture.getPath() + "\", \"" + picture.getCreationDate() + "\", " + std::to_string(albumIdFromName(albumName)) + ");";
+    sqlStatement = str.c_str();
+    errMessage = nullptr;
+    res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
 }
 
 void DatabaseAccess::removePictureFromAlbumByName(const std::string& albumName, const std::string& pictureName)
