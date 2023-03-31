@@ -273,7 +273,7 @@ int DatabaseAccess::countTagsOfUser(const User& user)
 
 float DatabaseAccess::averageTagsPerAlbumOfUser(const User& user)
 {
-    return 0.0f;
+    return countTagsOfUser(user)/countAlbumsOwnedOfUser(user);
 }
 
 User DatabaseAccess::getTopTaggedUser()
