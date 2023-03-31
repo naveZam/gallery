@@ -278,7 +278,20 @@ float DatabaseAccess::averageTagsPerAlbumOfUser(const User& user)
 
 User DatabaseAccess::getTopTaggedUser()
 {
-    return User(-1, "");
+    std::list<User> list = getUsers();
+    std::list<User> temp = list;
+    User topUser = User(list.front().getId(), list.front().getName());
+    auto it = list.begin();
+
+    for (it = list.begin(); it != list.end(); it++)
+    {
+        if (countTagsOfUser(temp.front()) > countTagsOfUser(topUser));
+        {
+            topUser = getUser(it->getId());
+        }
+        temp.pop_front();
+    }
+    return topUser;
 }
 
 Picture DatabaseAccess::getTopTaggedPicture()
