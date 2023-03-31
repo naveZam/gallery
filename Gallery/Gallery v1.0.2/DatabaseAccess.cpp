@@ -296,7 +296,20 @@ User DatabaseAccess::getTopTaggedUser()
 
 Picture DatabaseAccess::getTopTaggedPicture()
 {
-    return Picture(-1, "");
+    std::list<Picture> list = getPictures();
+    std::list<Picture> temp = list;
+    Picture topPicture = Picture(list.front());
+    auto it = list.begin();
+
+    for (it = list.begin(); it != list.end(); it++)
+    {
+        if (temp.front().getTagsCount() > topPicture.getTagsCount());
+        {
+            topPicture = Picture(list.front());
+        }
+        temp.pop_front();
+    }
+    return topPicture;
 }
 
 std::list<Picture> DatabaseAccess::getTaggedPicturesOfUser(const User& user)
