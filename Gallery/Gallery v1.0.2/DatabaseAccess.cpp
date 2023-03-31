@@ -253,6 +253,28 @@ int DatabaseAccess::countAlbumsOwnedOfUser(const User& user)
 
 int DatabaseAccess::countAlbumsTaggedOfUser(const User& user)
 {
+    std::list<Album> list = getAlbums();
+    auto it = list.begin();
+    int count = 0;
+    bool tagged = false;
+
+    for (it = list.begin(); it != list.end(); it++)
+    {
+        std::list<Picture> pictures = it->getPictures();
+        auto picIt = pictures.begin();
+        for (picIt = pictures.begin(); picIt != pictures.end(); picIt++)
+        {
+            if (picIt->isUserTagged(user))
+            {
+                tagged = true;
+            }
+        }
+        if (tagged == true)
+        {
+            count++;
+            tagged = false;
+        }
+    }
     return 0;
 }
 
