@@ -232,6 +232,15 @@ void DatabaseAccess::deleteUser(const User& user)
 
 bool DatabaseAccess::doesUserExists(int userId)
 {
+    std::list<User> list = getUsers();
+    auto it = list.begin();
+    for (it = list.begin(); it != list.end(); it++)
+    {
+        if (it->getId() == userId)
+        {
+            return true;
+        }
+    }
     return false;
 }
 
