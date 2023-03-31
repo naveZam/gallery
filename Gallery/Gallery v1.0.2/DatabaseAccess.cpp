@@ -246,7 +246,8 @@ bool DatabaseAccess::doesUserExists(int userId)
 
 int DatabaseAccess::countAlbumsOwnedOfUser(const User& user)
 {
-    return 0;
+    std::list<Album> list = getAlbumsOfUser(user);
+    return list.size();
 }
 
 int DatabaseAccess::countAlbumsTaggedOfUser(const User& user)
