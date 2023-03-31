@@ -258,8 +258,17 @@ int DatabaseAccess::countAlbumsTaggedOfUser(const User& user)
 
 int DatabaseAccess::countTagsOfUser(const User& user)
 {
-
-    return 0;
+    std::list<Picture> list = getPictures();
+    auto it = list.begin();
+    int count = 0;
+    for (it = list.begin(); it != list.end(); it++)
+    {
+        if (it->isUserTagged(user.getId()))
+        {
+            count++;
+        }
+    }
+    return count;
 }
 
 float DatabaseAccess::averageTagsPerAlbumOfUser(const User& user)

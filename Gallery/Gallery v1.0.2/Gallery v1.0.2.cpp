@@ -35,8 +35,8 @@ int main(void)
 	MemoryAccess dataAccess;
 	DatabaseAccess dataAccessTest;
 	dataAccessTest.open();
-	dataAccessTest.printUsers();
-	dataAccessTest.doesUserExists(12);
+	User user = dataAccessTest.getUser(1);
+	dataAccessTest.countTagsOfUser(user);
 	dataAccessTest.close();
 
 	// initialize album manager
