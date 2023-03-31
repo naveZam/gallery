@@ -202,7 +202,16 @@ void DatabaseAccess::printUsers()
 
 User DatabaseAccess::getUser(int userId)
 {
-    return User(-1, "");
+    std::list<User> list = getUsers();
+    auto it = list.begin();
+    for (it = list.begin(); it != list.end(); it++)
+    {
+        if (it->getId() == userId)
+        {
+            return User(userId, it->getName().c_str());
+        }
+    }
+    return User(0, "");
 }
 
 void DatabaseAccess::createUser(User& user)
