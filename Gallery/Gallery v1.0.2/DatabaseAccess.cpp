@@ -159,8 +159,20 @@ void DatabaseAccess::untagUserInPicture(const std::string& albumName, const std:
     res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
 }
 
+const std::list<User> DatabaseAccess::getUsers()
+{
+    return std::list<User>();
+}
+
 void DatabaseAccess::printUsers()
 {
+    std::list<User> list = getUsers();
+    auto it = list.begin();
+    for (it = list.begin(); it != list.end(); it++)
+    {
+        std::cout << "Id: " << it->getId() << "\nName: " << it->getName() << "\n\n";
+        list.pop_back();
+    }
 }
 
 User DatabaseAccess::getUser(int userId)
