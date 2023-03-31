@@ -120,7 +120,11 @@ void DatabaseAccess::printAlbums()
 
 int DatabaseAccess::albumIdFromName(const std::string& albumName)
 {
-    return 0;
+    std::string str = "SELECT id FROM ALBUMS WHERE name = \"" + albumName + "\";";
+    sqlStatement = str.c_str();
+    errMessage = nullptr;
+    res = sqlite3_exec(db, sqlStatement, callbackPictureIdFromName, nullptr, &errMessage);
+    return retVal;
 }
 
 void DatabaseAccess::addPictureToAlbumByName(const std::string& albumName, const Picture& picture)
