@@ -137,6 +137,10 @@ void DatabaseAccess::addPictureToAlbumByName(const std::string& albumName, const
 
 void DatabaseAccess::removePictureFromAlbumByName(const std::string& albumName, const std::string& pictureName)
 {
+    std::string str = "UPDATE PICTURES SET album_id = 0 WHERE name = \"" + pictureName + "\";";
+    sqlStatement = str.c_str();
+    errMessage = nullptr;
+    res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
 }
 
 void DatabaseAccess::tagUserInPicture(const std::string& albumName, const std::string& pictureName, int userId)
