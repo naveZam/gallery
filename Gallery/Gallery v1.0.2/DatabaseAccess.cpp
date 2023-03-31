@@ -359,7 +359,7 @@ const std::list<Picture> DatabaseAccess::getPicturesFromAlbum(const std::string&
     std::string str = "SELECT * FROM PICTURES WHERE album_id = " + std::to_string(albumIdFromName(albumName)) + ";";
     sqlStatement = str.c_str();
     errMessage = nullptr;
-    res = sqlite3_exec(db, sqlStatement, callbackGetAlbums, nullptr, &errMessage);
+    res = sqlite3_exec(db, sqlStatement, callbackGetPictures, nullptr, &errMessage);
     return pictureList;
 }
 
@@ -370,5 +370,15 @@ void DatabaseAccess::deleteAlbum(const std::string& albumName, int userId)
     errMessage = nullptr;
     res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
     
+    std::list<Picture> list = getPicturesFromAlbum(albumName);
+    int i = 0;
+    for (i = 0; i < list.size(); i++)
+    {
+        std::string str = "DELETE FROM PICTURES WHERE name = \"" + list.front().getName() + "\" AND id = " + std::to_string(list.front().getId()) + ";";
+        sqlStatement = str.c_str();
+        errMessage = nullptr;
+        res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
 
+        list.pop_front();
+    }
 }
