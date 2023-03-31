@@ -314,7 +314,21 @@ Picture DatabaseAccess::getTopTaggedPicture()
 
 std::list<Picture> DatabaseAccess::getTaggedPicturesOfUser(const User& user)
 {
-    return std::list<Picture>();
+    std::list<Picture> list = getPictures();
+    std::list<Picture> temp = list;
+    std::list<Picture> userTagsPictures;
+    auto it = list.begin();
+
+    for (it = list.begin(); it != list.end(); it++)
+    {
+        std::set<int> set = it->getUserTags();
+        if (set.find(user.getId()) != set.end())
+        {
+            userTagsPictures.push_back(Picture(list.front()));
+        }
+        temp.pop_front();
+    }
+    return userTagsPictures;
 }
 
 int callbackGetAlbums(void* data, int argc, char** argv, char** azColName)

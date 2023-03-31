@@ -35,7 +35,8 @@ int main(void)
 	MemoryAccess dataAccess;
 	DatabaseAccess dataAccessTest;
 	dataAccessTest.open();
-	dataAccessTest.getTopTaggedPicture();
+	User user = dataAccessTest.getUser(1);
+	dataAccessTest.getTaggedPicturesOfUser(user);
 	dataAccessTest.close();
 
 	// initialize album manager
