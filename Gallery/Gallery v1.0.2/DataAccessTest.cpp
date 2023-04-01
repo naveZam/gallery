@@ -27,3 +27,8 @@ void DataAccessTest::updatePicture(Picture pic, std::string newName)
 	dataAccessTest.addPictureToAlbumByName("New Album", pic);
 
 }
+
+void DataAccessTest::deleteUser(User user)
+{
+	dataAccessTest.deleteUser(user);
+}
