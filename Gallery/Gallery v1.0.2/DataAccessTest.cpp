@@ -30,5 +30,13 @@ void DataAccessTest::updatePicture(Picture pic, std::string newName)
 
 void DataAccessTest::deleteUser(User user)
 {
+	std::list<Album> albumlist = dataAccessTest.getAlbumsOfUser(user);
+	auto it = albumlist.begin();
+
+	for (it = albumlist.begin(); it != albumlist.end(); it++)
+	{
+		dataAccessTest.deleteAlbum(it->getName(), it->getOwnerId());
+	}
+
 	dataAccessTest.deleteUser(user);
 }
