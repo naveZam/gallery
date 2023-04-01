@@ -16,3 +16,14 @@ void DataAccessTest::addUser(int id, std::string name, int idPic)
 	dataAccessTest.createUser(user);
 	dataAccessTest.createAlbum(album);
 }
+
+void DataAccessTest::updatePicture(Picture pic, std::string newName)
+{
+	pic.setName(newName + "e");
+	Album album = Album(0, "New Album");
+	dataAccessTest.addPictureToAlbumByName("New Album", pic);
+	pic.setName(newName);
+	dataAccessTest.removePictureFromAlbumByName("New Album", pic.getName());
+	dataAccessTest.addPictureToAlbumByName("New Album", pic);
+
+}
