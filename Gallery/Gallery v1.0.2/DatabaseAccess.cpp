@@ -310,7 +310,7 @@ void DatabaseAccess::createUser(User& user)
 
 void DatabaseAccess::deleteUser(const User& user)
 {
-    std::string str = "DELETE FROM TAGS WHERE id = " + std::to_string(user.getId()) + " AND name = " + user.getName() + ";";
+    std::string str = "DELETE FROM USERS WHERE id = " + std::to_string(user.getId()) + " AND name = " + user.getName() + ";";
     sqlStatement = str.c_str();
     errMessage = nullptr;
     res = sqlite3_exec(db, sqlStatement, nullptr, nullptr, &errMessage);
