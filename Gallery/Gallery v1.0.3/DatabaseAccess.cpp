@@ -253,6 +253,8 @@ int callbackGetPictures(void* data, int argc, char** argv, char** azColName)
 {
     int id = 0;
     std::string name = "";
+    std::string location = "";
+    std::string creationDate = "";
     int i = 0;
 
     for (i = 0; i < argc; i++)
@@ -265,8 +267,16 @@ int callbackGetPictures(void* data, int argc, char** argv, char** azColName)
         {
             name = argv[i];
         }
+        else if (std::string(azColName[i]) == "LOCATION")
+        {
+            location = argv[i];
+        }
+        else if (std::string(azColName[i]) == "CREATION_DATE")
+        {
+            creationDate = argv[i];
+        }
     }
-    Picture picture(id, name);
+    Picture picture(id, name, location, creationDate);
     pictureList.push_back(picture);
     return 0;
 }
